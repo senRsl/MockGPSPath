@@ -3,8 +3,10 @@ package com.rc.mockgpspath;
 import java.util.ArrayList;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
@@ -78,13 +80,23 @@ public class MockGPSPathService extends Service {
 	}
 
 	public void createProgressNotification() {
-		Notification notification = new Notification(R.drawable.ic_launcher, getString(R.string.mockgpspath_running_), System.currentTimeMillis());
-		notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-
-		Intent notificationIntent = new Intent(this, MockGPSPathActivity.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-
-		notification.setLatestEventInfo(this, getString(R.string.mockgpspath_running_), getString(R.string.mockgpspath_running_), contentIntent);
+//		Notification notification = new Notification(R.drawable.ic_launcher, getString(R.string.mockgpspath_running_), System.currentTimeMillis());
+//		notification.flags = Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
+//
+//		Intent notificationIntent = new Intent(this, MockGPSPathActivity.class);
+//		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+//
+//		notification.setLatestEventInfo(this, getString(R.string.mockgpspath_running_), getString(R.string.mockgpspath_running_), contentIntent);
+		
+		
+		NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        //API level 11
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle(getString(R.string.mockgpspath_running_));
+        builder.setContentText(getString(R.string.mockgpspath_running_));
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        Notification notification = builder.getNotification();
+        manager.notify(R.drawable.ic_launcher, notification);
 
 		startForeground(1337, notification);
 	}
@@ -140,7 +152,7 @@ public class MockGPSPathService extends Service {
 				loc.setLongitude(curLong);
 				loc.setBearing(curBearing);
 				loc.setSpeed((float) MperSec);
-				locationManager.setTestProviderLocation("gps", loc);
+				locationManager.setTestProviderLocation("gps", loc);//核心代码
 				try {
 					Thread.sleep(TIME_BETWEEN_UPDATES_MS);
 				} catch (Exception e) {

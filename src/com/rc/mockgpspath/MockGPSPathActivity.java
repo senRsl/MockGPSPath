@@ -27,8 +27,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdView;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -142,10 +140,10 @@ public class MockGPSPathActivity extends MapActivity {
 		if (centerPoint != null)
 			mapView.getController().setCenter(centerPoint);
 
-		AdView adView = (AdView) findViewById(R.id.adView);
-		adView.setVisibility(View.VISIBLE);
-		AdRequest adRequest = new AdRequest();
-		adView.loadAd(adRequest);
+//		AdView adView = (AdView) findViewById(R.id.adView);
+//		adView.setVisibility(View.VISIBLE);
+//		AdRequest adRequest = new AdRequest();
+//		adView.loadAd(adRequest);
 
 		View search = findViewById(R.id.search);
 		search.setOnClickListener(searchClickListener);
@@ -244,9 +242,10 @@ public class MockGPSPathActivity extends MapActivity {
 	protected void onResume() {
 		super.onResume();
 		myLocationOverlay.enableMyLocation();
-		checkIfMockEnabled();
+//		checkIfMockEnabled();
 	}
 
+	//Android 6.0 以下：使用Settings.Secure.ALLOW_MOCK_LOCATION判断。
 	private void checkIfMockEnabled() {
 		try {
 			int mock_location = Settings.Secure.getInt(getContentResolver(), "mock_location");

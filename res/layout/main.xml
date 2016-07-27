@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+<!-- 
     <com.google.ads.AdView
         android:id="@+id/adView"
         android:layout_width="fill_parent"
@@ -11,12 +12,12 @@
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
         ads:adUnitId="a14f79584c5f029" />
+ -->
 
     <com.rc.mockgpspath.MockGPSMapView
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/adView"
         android:layout_marginTop="60dp"
         android:apiKey="0_pExoYBVGwE2mraZsxAF-0farEGJTolSPvq4iQ"
         android:clickable="true"
